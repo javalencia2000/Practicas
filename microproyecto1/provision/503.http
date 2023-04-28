@@ -1,0 +1,19 @@
+HTTP/1.0 503 Service Unavailable
+Cache-Control: no-cache
+Connection: close
+Content-Type: text/html
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>error</title>
+</head>
+<body>
+	<center>
+		<h1> servicio no disponible</h1><br>
+		<img src="https://static.vecteezy.com/system/resources/previews/017/178/063/original/depressed-sad-face-emoji-expression-symbol-on-transparent-background-free-png.png" width="20%"><br>
+		<h2> Disculpe las molestias, intente mas tarde </h2>
+	</center>
+</body>
+</html>

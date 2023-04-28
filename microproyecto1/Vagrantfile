@@ -1,0 +1,45 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+if Vagrant.has_plugin? "vagrant-vbguest"
+config.vbguest.no_install = true
+config.vbguest.auto_update = false
+config.vbguest.no_remote = true
+end
+
+config.vm.define :web1 do |web1|
+web1.vm.box = "bento/ubuntu-20.04"
+web1.vm.network :private_network, ip: "192.168.100.2"
+web1.vm.hostname = "web1"
+web1.vm.provision "file", source: "provision/config_1.json", destination: "/home/vagrant/config_1.json"
+web1.vm.provision "file", source: "provision/consul.service", destination: "/home/vagrant/consul.service"
+web1.vm.provision "file", source: "provision/web.service", destination: "/home/vagrant/web.service"
+web1.vm.provision "shell", path: "provision/script1.sh"
+end
+
+config.vm.define :web2 do |web2|
+web2.vm.box = "bento/ubuntu-20.04"
+web2.vm.network :private_network, ip: "192.168.100.3"
+web2.vm.hostname = "web2"
+web2.vm.provision "file", source: "provision/config_2.json", destination: "/home/vagrant/config_2.json"
+web2.vm.provision "file", source: "provision/consul.service", destination: "/home/vagrant/consul.service"
+web2.vm.provision "file", source: "provision/web.service", destination: "/home/vagrant/web.service"
+web2.vm.provision "shell", path: "provision/script2.sh"
+end
+
+config.vm.define :haproxy do |haproxy|
+haproxy.vm.box = "bento/ubuntu-20.04"
+haproxy.vm.network :private_network, ip: "192.168.100.4"
+haproxy.vm.hostname = "haproxy"
+haproxy.vm.provision "file", source: "provision/config_3.json", destination: "/home/vagrant/config_3.json"
+haproxy.vm.provision "file", source: "provision/consul.service", destination: "/home/vagrant/consul.service"
+haproxy.vm.provision "file", source: "provision/web.service", destination: "/home/vagrant/web.service"
+haproxy.vm.provision "file", source: "provision/503.http", destination: "/home/vagrant/503.http"
+haproxy.vm.provision "file", source: "provision/haproxy.cfg", destination: "/home/vagrant/haproxy.cfg"
+haproxy.vm.provision "shell", path: "provision/script3.sh"
+
+
+end
+
+end
